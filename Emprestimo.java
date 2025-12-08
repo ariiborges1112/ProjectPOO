@@ -1,29 +1,22 @@
 package projetoPOO;
 //importação da classe Usuario
 import projetoPOO.tiposUsuario.Usuario;
-//classe que dita o que é um empréstimo
+//classe que dá dados ao Emprestimo
 public class Emprestimo{
-    private final int idEmprestimo;
-    private static int proximoId = 1;
+    final int idEmprestimo;
+    static int proximoId = 1;
     private Usuario usuario;
     private Livro livro;
     private String dataEmprestimo;
     private boolean ativo;
 
+    //construtor que inicializa usuario, livro e incrementa 1 ao ID
     public Emprestimo(Usuario usuario, Livro livro){
         this.idEmprestimo = proximoId++;
         this.usuario = usuario;
         this.livro = livro;
         this.dataEmprestimo = "";
         this.ativo = true;
-    }
-
-    public void finalizarEmprestimo(){
-        this.ativo = false;
-        this.livro.setDisponivel(true);
-        this.usuario.getLivrosEmprestados().remove(this.livro);
-
-        System.out.println("empréstimo de " + this.livro.getTitulo() + " foi concluido");
     }
 
     //metodo toString() que retorna as informações do respectivo Emprestimo
@@ -35,14 +28,6 @@ public class Emprestimo{
     }
 
     //encapsulamento
-    public int getIdEmprestimo(){
-        return this.idEmprestimo;
-    }
-
-    public static int getProximoId(){
-        return proximoId;
-    }
-
     public Usuario getUsuario(){
         return this.usuario;
     }
