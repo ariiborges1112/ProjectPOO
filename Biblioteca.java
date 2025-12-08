@@ -24,7 +24,7 @@ public class Biblioteca{
     public boolean adicionarLivro(Livro livro){
         if(livro == null) return false;
 
-        this.getListaLivros().add(livro);
+        this.livrosDaBiblioteca.add(livro);
         return true;
     }
 
@@ -32,7 +32,7 @@ public class Biblioteca{
     public boolean removerLivro(Livro livro){
         if(!livrosDaBiblioteca.contains(livro)) return false;
 
-        this.getListaLivros().remove(livro);
+        this.livrosDaBiblioteca.remove(livro);
         return true;
     }
 
@@ -61,18 +61,14 @@ public class Biblioteca{
     //metodos que listam os Livros presentes na Biblioteca
     public void listarLivros(){
         System.out.println("\n----LISTA DE TODOS OS LIVROS DA BIBLIOTECA----");
-        for(Livro livros : getListaLivros())
+        for(Livro livros : this.livrosDaBiblioteca)
             System.out.println(livros.toString());
     }
 
     //lista por ID
     public void listarIdLivros(){
         System.out.println("\n----LISTA DE ID's DOS LIVROS DA BIBLIOTECA----");
-        for(Livro livros : getListaLivros())
+        for(Livro livros : this.livrosDaBiblioteca)
             System.out.println(livros.getTitulo() + " --> " + livros.getIdLivro());
-    }
-
-    public ArrayList<Livro> getListaLivros(){
-        return this.livrosDaBiblioteca;
     }
 }
