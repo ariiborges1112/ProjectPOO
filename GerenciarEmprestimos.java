@@ -1,15 +1,15 @@
 package projetoPOO;
 //importação das classes Usuario, e de ArrayList e Iterator
 import projetoPOO.tiposUsuario.Usuario;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 //classe que faz todas as operações dos empréstimos usando métodos
 public class GerenciarEmprestimos{
-    public ArrayList<Emprestimo> emprestimosAtivos;
+    public HashSet<Emprestimo> emprestimosAtivos;
 
     //construtor que inicializa a ArrayList
     public GerenciarEmprestimos(){
-        this.emprestimosAtivos = new ArrayList<>();
+        this.emprestimosAtivos = new HashSet<>();
     }
 
     /*
