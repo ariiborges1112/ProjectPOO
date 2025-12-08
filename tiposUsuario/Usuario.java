@@ -13,7 +13,7 @@ public abstract class Usuario implements Regras{
     private final ArrayList<Livro> livrosEmprestados;
 
 
-    //construtor que inicializa apenas nome, email e cria o ArrayList
+    //construtor que inicializa apenas nome, email, incrememnta 1 ao ID e cria a ArrayList
     public Usuario(String nome, String email){
         this.nome = nome;
         this.email = email;
