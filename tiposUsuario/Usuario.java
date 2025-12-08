@@ -1,33 +1,36 @@
 package projetoPOO.tiposUsuario;
-//importe da classe Livro e da ArrayList
+//importação da classe Livro e de ArrayList
 import projetoPOO.Livro;
 import java.util.ArrayList;
 //criação da classe abstrata e da implementação da interface
 public abstract class Usuario implements Regras{
     private String nome;
-    private int id;
     private String email;
+    private final int id;
+    private static int proximoId = 1;
     private int limiteEmprestimos;
     private int diasDevolucao;
     private final ArrayList<Livro> livrosEmprestados;
 
-    //construtor que inicializa apenas nome, id, email e cria o ArrayList
-    public Usuario(String nome, int id, String email){
+
+    //construtor que inicializa apenas nome, email e cria o ArrayList
+    public Usuario(String nome, String email){
         this.nome = nome;
-        this.id = id;
         this.email = email;
+        this.id = proximoId++;
         this.livrosEmprestados = new ArrayList<>();
     }
 
-    //metodo concreto
+    //metodo concreto que indica que o usuario chegou no limite de emprestimos
     public boolean alcancouLimite(){
-        if(this.getLivrosEmprestados().size() >= this.getLimiteEmprestimos()){
-            System.out.println("limite alcançado!");
-            return true;
-        }
-        System.out.println("o limite não foi alcançado");
-        System.out.println("ainda há espaço");
-        return false;
+        return this.getLivrosEmprestados().size() >= this.getLimiteEmprestimos();
+    }
+
+    //metodo concreto que lista todos os livros emprestados por usuário (aluno, professor e visitante)
+    public void listarLivrosEmprestadosPorUsuario(){
+        System.out.println("\nlista de livros emprestados para " + this.getNome() + " abaixo:");
+        for(Livro livros : this.getLivrosEmprestados())
+            System.out.println(livros);
     }
 
     //encapsulamento
@@ -36,18 +39,8 @@ public abstract class Usuario implements Regras{
     }
 
     public void setNome(String nome){
-        if(this.nome != null){
+        if(nome != null){
             this.nome = nome;
-        }
-    }
-
-    public int getId(){
-        return this.id;
-    }
-
-    public void setId(int id){
-        if(this.id > 0){
-            this.id = id;
         }
     }
 
@@ -56,9 +49,17 @@ public abstract class Usuario implements Regras{
     }
 
     public void setEmail(String email){
-        if(this.email != null){
+        if(email != null){
             this.email = email;
         }
+    }
+
+    public int getId(){
+        return this.id;
+    }
+
+    public static int getProximoId(){
+        return proximoId;
     }
 
     public int getLimiteEmprestimos(){
@@ -66,7 +67,7 @@ public abstract class Usuario implements Regras{
     }
 
     public void setLimiteEmprestimos(int limiteEmprestimos){
-        if(this.limiteEmprestimos > 0){
+        if(limiteEmprestimos > 0){
             this.limiteEmprestimos = limiteEmprestimos;
         }
     }
@@ -76,7 +77,9 @@ public abstract class Usuario implements Regras{
     }
 
     public void setDiasDevolucao(int diasDevolucao){
-        this.diasDevolucao = diasDevolucao;
+        if(diasDevolucao >= 0){
+            this.diasDevolucao = diasDevolucao;
+        }
     }
 
     public ArrayList<Livro> getLivrosEmprestados(){

@@ -1,28 +1,27 @@
 package projetoPOO;
-//importação da ArrayList
+//importação de ArrayList
 import java.util.ArrayList;
 
 public class Livro{
     private String titulo;
     private String autor;
-    private int id;
+    private final int idLivro;
+    private static int proximoIdLivro = 1;
     private int anoPublicacao;
     private boolean disponivel;
-    private final ArrayList<Integer> filaDeEspera;
 
     //metodo construtor
-    public Livro(String titulo, String autor, int id, int anoPublicacao){
+    public Livro(String titulo, String autor, int anoPublicacao){
         this.titulo = titulo;
         this.autor = autor;
-        this.id = id;
+        this.idLivro = proximoIdLivro++;
         this.anoPublicacao = anoPublicacao;
         this.disponivel = true;
-        this.filaDeEspera = new ArrayList<>();
     }
 
-    //metodo que verfiica se o livro está disponivel e se há reservas vazias retornando true ou false
+    //metodo que verfiica se o livro está disponivel retornando true ou false
     public boolean podeSerEmprestado(){
-        return this.disponivel && this.getFilaDeEspera().isEmpty();
+        return this.disponivel;
     }
 
     //encapsulamento
@@ -31,7 +30,7 @@ public class Livro{
     }
 
     public void setTitulo(String titulo){
-        if(this.titulo != null){
+        if(titulo != null){
             this.titulo = titulo;
         }
     }
@@ -41,17 +40,17 @@ public class Livro{
     }
 
     public void setAutor(String autor){
-        if(this.autor != null){
+        if(autor != null){
             this.autor = autor;
         }
     }
 
-    public int getId(){
-        return this.id;
+    public int getIdLivro(){
+        return this.idLivro;
     }
 
-    public void setId(int id){
-        this.id = id;
+    public static int getProximoIdLivro(){
+        return proximoIdLivro;
     }
 
     public int getAnoPublicacao(){
@@ -59,7 +58,9 @@ public class Livro{
     }
 
     public void setAnoPublicacao(int anoPublicacao){
-        this.anoPublicacao = anoPublicacao;
+        if(anoPublicacao > 0){
+            this.anoPublicacao = anoPublicacao;
+        }
     }
 
     public boolean isDisponivel(){
@@ -70,15 +71,11 @@ public class Livro{
         this.disponivel = disponivel;
     }
 
-    public ArrayList<Integer> getFilaDeEspera(){
-        return this.filaDeEspera;
-    }
-
-    //metodo especial que retorna as informações do respectivo livro
+    //metodo toString() que retorna as informações do respectivo livro
     @Override
     public String toString() {
         return "\n----INFORMAÇÕES SOBRE O LIVRO----" +
-                "\ntitulo: " + this.getTitulo() + "\nautor: " + this.getAutor() + "\nID: " + this.getId() +
+                "\ntitulo: " + this.getTitulo() + "\nautor: " + this.getAutor() + "\nID: " + this.getIdLivro() +
                 "\nano de publicação: " + this.getAnoPublicacao() + "\ndisponibilidade: " + this.isDisponivel();
     }
 }

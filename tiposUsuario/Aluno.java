@@ -1,8 +1,10 @@
 package projetoPOO.tiposUsuario;
+//importe da classe Livro
+import projetoPOO.Livro;
 //subclasse Aluno que herda tudo de Usuario
 public class Aluno extends Usuario{
-    public Aluno(String nome, int id, String email){
-        super(nome, id, email);
+    public Aluno(String nome, String email){
+        super(nome, email);
         this.definirLimite();
         this.definirDiasMaximoDevolucao();
     }
@@ -24,6 +26,7 @@ public class Aluno extends Usuario{
         this.setDiasDevolucao(30);
     }
 
+    //metodo toString() que retorna as informações do respectivo Aluno
     @Override
     public String toString(){
         return "\n----INFORMÇÕES DE ALUNO----" +

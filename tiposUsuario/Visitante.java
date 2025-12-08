@@ -1,17 +1,21 @@
 package projetoPOO.tiposUsuario;
+//importe da classe Livro
+import projetoPOO.Livro;
 //subclasse Visitante que herda tudo de Usuario
 public class Visitante extends Usuario{
-    public Visitante(String nome, int id, String email){
-        super(nome, id, email);
+    public Visitante(String nome, String email){
+        super(nome, email);
         this.definirLimite();
         this.definirDiasMaximoDevolucao();
     }
 
+    //implementação da interface Regras
     @Override
     public double calcularMulta(int diasDeAtraso){
         return diasDeAtraso * 1.5;
     }
 
+    //metodos que atribuem valor aos atributos limiteEmprestimos e diasDevolucao
     @Override
     public void definirLimite(){
         this.setLimiteEmprestimos(2);
@@ -22,6 +26,7 @@ public class Visitante extends Usuario{
         this.setDiasDevolucao(25);
     }
 
+    //metodo toString() que retorna as informações do respectivo Visitante
     @Override
     public String toString(){
         return "\n----INFORMÇÕES DE VISITANTE----" +

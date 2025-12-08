@@ -1,20 +1,26 @@
 package projetoPOO;
-
+//importação de ArrayList
 import java.util.ArrayList;
-
+//classe de controle dos livros
 public class Biblioteca{
-    private ArrayList<Livro> listaLivros;
+    protected ArrayList<Livro> livrosDaBiblioteca;
 
+    //construtor que inicializa apenas a arrayList
     public Biblioteca(){
-        this.listaLivros = new ArrayList<>();
+        this.livrosDaBiblioteca = new ArrayList<>();
     }
 
-    public Livro criarLivro(String titulo, String autor, int id, int anoPublicacao){
-        Livro livro = new Livro(titulo, autor, id, anoPublicacao);
-        this.listaLivros.add(livro);
+    //metodo que cria um Livro e automaticamente já o adiciona a array
+    public Livro criarLivro(String titulo, String autor, int anoPublicacao){
+        if(titulo == null || autor == null || anoPublicacao <= 0) return null;
+
+        Livro livro = new Livro(titulo, autor, anoPublicacao);
+        this.livrosDaBiblioteca.add(livro);
+
         return livro;
     }
 
+    //metodo que adiciona o livro manualmente ao array
     public boolean adicionarLivro(Livro livro){
         if(livro == null) return false;
 
@@ -22,37 +28,51 @@ public class Biblioteca{
         return true;
     }
 
+    //metodo que remove o livro manualmente ao array
     public boolean removerLivro(Livro livro){
-        if(livro == null) return false;
+        if(!livrosDaBiblioteca.contains(livro)) return false;
 
         this.getListaLivros().remove(livro);
         return true;
     }
 
+    //metodo que procura o livro na biblioteca pelo seu ID
     public Livro buscarPorId(int id){
-        for(Livro livroBuscado : listaLivros){
-            if(livroBuscado.getId() == id){
-                return livroBuscado;
-            }
+        if(id <= 0) return null;
+
+        for(Livro livroBuscar : livrosDaBiblioteca){
+            if(livroBuscar.getIdLivro() == id)
+                return livroBuscar;
         }
         return null;
     }
 
-    public void listarLivros(){
-        System.out.println("\n----LISTA DE TODOS OS LIVROS DA BIBLIOTECA----");
-        for(Livro l : getListaLivros()){
-            System.out.println(l.toString());
+    //metodo que procura o livro na biblioteca pelo seu ID
+    public Livro buscarPorTitulo(String titulo){
+        if(titulo == null) return null;
+
+        for(Livro livroBuscar : livrosDaBiblioteca){
+            if(livroBuscar.getTitulo().equals(titulo))
+                return livroBuscar;
         }
+        return null;
     }
 
+    //metodos que listam os Livros presentes na Biblioteca
+    public void listarLivros(){
+        System.out.println("\n----LISTA DE TODOS OS LIVROS DA BIBLIOTECA----");
+        for(Livro livros : getListaLivros())
+            System.out.println(livros.toString());
+    }
+
+    //lista por ID
     public void listarIdLivros(){
-        System.out.println("\n----LISTA DE ID's OS LIVROS DA BIBLIOTECA----");
-        for(Livro l : getListaLivros()){
-            System.out.println(l.getTitulo() + " --> " + l.getId());
-        }
+        System.out.println("\n----LISTA DE ID's DOS LIVROS DA BIBLIOTECA----");
+        for(Livro livros : getListaLivros())
+            System.out.println(livros.getTitulo() + " --> " + livros.getIdLivro());
     }
 
     public ArrayList<Livro> getListaLivros(){
-        return this.listaLivros;
+        return this.livrosDaBiblioteca;
     }
 }
