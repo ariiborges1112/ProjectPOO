@@ -10,7 +10,7 @@ public class Livro{
     private int anoPublicacao;
     private boolean disponivel;
 
-    //metodo construtor
+    //construtor que inicializa titulo, autor, anoPublicacao e incrementa 1 ao ID
     public Livro(String titulo, String autor, int anoPublicacao){
         this.titulo = titulo;
         this.autor = autor;
