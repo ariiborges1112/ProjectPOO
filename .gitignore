@@ -14,6 +14,7 @@ target/
 *.ipr
 
 /.mvm/
+.idea/
 
 ### Eclipse ###
 .apt_generated
