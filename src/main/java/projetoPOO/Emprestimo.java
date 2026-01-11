@@ -1,13 +1,15 @@
 package projetoPOO;
-//importação da classe Usuario
+//importação da classe Usuario e do pacote de data
 import projetoPOO.tiposUsuario.Usuario;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 //classe que dá dados ao Emprestimo
 public class Emprestimo{
     final int idEmprestimo;
     static int proximoId = 1;
     private Usuario usuario;
     private Livro livro;
-    private String dataEmprestimo;
+    private LocalDate dataEmprestimo;
     private boolean ativo;
 
     //construtor que inicializa usuario, livro e incrementa 1 ao ID
@@ -15,16 +17,19 @@ public class Emprestimo{
         this.idEmprestimo = proximoId++;
         this.usuario = usuario;
         this.livro = livro;
-        this.dataEmprestimo = "";
+        this.dataEmprestimo = LocalDate.now();
         this.ativo = true;
     }
 
     //metodo toString() que retorna as informações do respectivo Emprestimo
     @Override
     public String toString(){
+        DateTimeFormatter formatoDaData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
         return "\n----INFORMAÇÕES DO EMPRÉSTIMO----" +
                 "\nID do empréstimo: " + idEmprestimo + "\nusuário=" + usuario +
-                "\nlivro: " + livro + "\ndevolvido: " + ativo;
+                "\nlivro: " + livro + "\ndata do empréstimo: " + dataEmprestimo.format(formatoDaData) +
+                "\nempréstimo ativo: " + ativo;
     }
 
     //encapsulamento
@@ -48,11 +53,11 @@ public class Emprestimo{
         }
     }
 
-    public String getDataEmprestimo(){
+    public LocalDate getDataEmprestimo(){
         return this.dataEmprestimo;
     }
 
-    public void setDataEmprestimo(String dataEmprestimo){
+    public void setDataEmprestimo(LocalDate dataEmprestimo){
         if(dataEmprestimo != null){
             this.dataEmprestimo = dataEmprestimo;
         }

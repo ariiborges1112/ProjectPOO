@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 //classe que faz todas as operações dos empréstimos usando métodos
 public class GerenciarEmprestimos{
-    public HashSet<Emprestimo> emprestimosAtivos;
+    protected HashSet<Emprestimo> emprestimosAtivos;
 
     //construtor que inicializa a ArrayList
     public GerenciarEmprestimos(){
