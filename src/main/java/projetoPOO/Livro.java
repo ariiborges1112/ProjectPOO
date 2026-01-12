@@ -10,10 +10,10 @@ public class Livro{
 
     //construtor que inicializa titulo, autor, anoPublicacao e incrementa 1 ao ID
     public Livro(String titulo, String autor, int anoPublicacao){
-        this.titulo = titulo;
-        this.autor = autor;
+        this.setTitulo(titulo);
+        this.setAutor(autor);
         this.idLivro = proximoIdLivro++;
-        this.anoPublicacao = anoPublicacao;
+        this.setAnoPublicacao(anoPublicacao);
         this.disponivel = true;
     }
 
@@ -28,9 +28,10 @@ public class Livro{
     }
 
     public void setTitulo(String titulo){
-        if(titulo != null){
-            this.titulo = titulo;
+        if(titulo == null || titulo.isEmpty()){
+            throw new IllegalArgumentException("Erro: Título inválido");
         }
+        this.titulo = titulo;
     }
 
     public String getAutor(){
@@ -38,9 +39,10 @@ public class Livro{
     }
 
     public void setAutor(String autor){
-        if(autor != null){
-            this.autor = autor;
+        if(autor == null || autor.isEmpty()){
+            throw new IllegalArgumentException("Erro: Nome de autor inválido");
         }
+        this.autor = autor;
     }
 
     public int getIdLivro(){
@@ -56,9 +58,10 @@ public class Livro{
     }
 
     public void setAnoPublicacao(int anoPublicacao){
-        if(anoPublicacao > 0){
-            this.anoPublicacao = anoPublicacao;
+        if(anoPublicacao <= 0){
+            throw new IllegalArgumentException("Erro: O ano de publicação deve ser maior que 0");
         }
+        this.anoPublicacao = anoPublicacao;
     }
 
     public boolean isDisponivel(){

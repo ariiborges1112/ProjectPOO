@@ -16,11 +16,22 @@ public class GerenciarEmprestimos{
     metood que cria um emprestimo recebendo sua Biblioteca,
     o usuario responsavel pelo emprestimo e o livro emprestado
      */
-    public Emprestimo criarEmprestimo(Biblioteca biblioteca, Usuario usuario, Livro livro){
-        if(biblioteca == null || usuario == null || livro == null) return null;
-        if(usuario.alcancouLimite()) return null;
-        if(!biblioteca.livrosDaBiblioteca.contains(livro)) return null;
-        if(!livro.isDisponivel()) return null;
+    public Emprestimo criarEmprestimo(Biblioteca biblioteca, Usuario usuario, Livro livro) throws Exception{
+        if(biblioteca == null || usuario == null || livro == null) {
+            throw new IllegalArgumentException("Erro: Biblioteca, Usuário ou Livro não podem ser nulos");
+        }
+
+        if(usuario.alcancouLimite()) {
+            throw new Exception("Erro: O usuário " + usuario.getNome() + " já está com " + usuario.getLivrosEmprestados().size() + " livros");
+        }
+
+        if(!biblioteca.livrosDaBiblioteca.contains(livro)){
+            throw new Exception("Erro: O livro " + livro.getTitulo() + " não pertence a esta biblioteca");
+        }
+
+        if(!livro.isDisponivel()){
+            throw new Exception("Indisponível: O livro " + livro.getTitulo() + " já está emprestado no momento");
+        }
 
         Emprestimo e = new Emprestimo(usuario, livro);
 
@@ -28,7 +39,8 @@ public class GerenciarEmprestimos{
         usuario.getLivrosEmprestados().add(livro);
         livro.setDisponivel(false);
 
-        System.out.println("empréstimo de " + livro.getTitulo() + " para " + usuario.getNome() + " criado");
+        System.out.println("sucesso! Empréstimo criado para " + usuario.getNome());
+        System.out.println(livro.getTitulo() + " acaba de ser emprestado");
         return e;
     }
 
@@ -46,10 +58,14 @@ public class GerenciarEmprestimos{
             Emprestimo atual = it.next();
 
             if(atual.idEmprestimo == id){
+                //remove do sistema
                 it.remove();
-                atual.setAtivo(true);
+                //remove da lista do usuário especifico
+                atual.getUsuario().getLivrosEmprestados().remove(atual.getLivro());
+                //seta o empréstimo para falso e set o livro como disponivel
+                atual.setAtivo(false);
                 atual.getLivro().setDisponivel(true);
-                break;
+                return true;
             }
         }
         return false;
@@ -69,10 +85,14 @@ public class GerenciarEmprestimos{
             Emprestimo atual = it.next();
 
             if(atual.getLivro().getTitulo().equals(titulo)){
+                //remove do sistema
                 it.remove();
-                atual.setAtivo(true);
+                //remove da lista do usuário especifico
+                atual.getUsuario().getLivrosEmprestados().remove(atual.getLivro());
+                //seta o empréstimo para falso e set o livro como disponivel
+                atual.setAtivo(false);
                 atual.getLivro().setDisponivel(true);
-                break;
+                return true;
             }
         }
         return false;

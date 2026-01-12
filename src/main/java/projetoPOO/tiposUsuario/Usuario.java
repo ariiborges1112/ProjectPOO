@@ -2,6 +2,7 @@ package projetoPOO.tiposUsuario;
 //importação da classe Livro e de ArrayList
 import projetoPOO.Livro;
 import java.util.ArrayList;
+
 //criação da classe abstrata e da implementação da interface
 public abstract class Usuario implements Regras{
     private String nome;
@@ -15,8 +16,10 @@ public abstract class Usuario implements Regras{
 
     //construtor que inicializa apenas nome, email, incrememnta 1 ao ID e cria a ArrayList
     public Usuario(String nome, String email){
-        this.nome = nome;
-        this.email = email;
+        //se tentar criar com null ou vazio, o erro será lançado
+        this.setNome(nome);
+        this.setEmail(email);
+
         this.id = proximoId++;
         this.livrosEmprestados = new ArrayList<>();
     }
@@ -39,9 +42,10 @@ public abstract class Usuario implements Regras{
     }
 
     public void setNome(String nome){
-        if(nome != null){
-            this.nome = nome;
+        if(nome == null || nome.isEmpty()){
+            throw new IllegalArgumentException("Erro: Nome do usuário não pode ser vazio");
         }
+        this.nome = nome;
     }
 
     public String getEmail(){
@@ -49,9 +53,10 @@ public abstract class Usuario implements Regras{
     }
 
     public void setEmail(String email){
-        if(email != null){
-            this.email = email;
+        if(email == null || email.isEmpty()){
+            throw new IllegalArgumentException("Erro: Email inválido");
         }
+        this.email = email;
     }
 
     public int getId(){
@@ -67,9 +72,10 @@ public abstract class Usuario implements Regras{
     }
 
     public void setLimiteEmprestimos(int limiteEmprestimos){
-        if(limiteEmprestimos > 0){
-            this.limiteEmprestimos = limiteEmprestimos;
+        if(limiteEmprestimos <= 0){
+            throw new IllegalArgumentException("Erro: Limite de empréstimos deve ser maior que 0");
         }
+        this.limiteEmprestimos = limiteEmprestimos;
     }
 
     public int getDiasDevolucao(){
